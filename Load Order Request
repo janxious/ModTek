@@ -1,0 +1,9 @@
+Priority Load Order Request
+
+An int value to set load order of mods without requiring dependency statements. Default would be "1" with higher meaning later loading. If possible, a missing or undeclared load order would default to 1.
+
+For example, I could set this mod https://github.com/DrBuckarooBanzai/cFixes to a value of 0 to be loaded before any other mod.  Higher numbers go later and thus on top of other mods.
+
+Mods with the same load order load as they do now.  int would be part of the mod.json
+
+"Priority": 1
