@@ -8,6 +8,7 @@ using BattleTech.Rendering;
 using BattleTech.Save;
 using BattleTech.UI;
 using Harmony;
+using Localize;
 using RenderHeads.Media.AVProVideo;
 using UnityEngine;
 
@@ -90,7 +91,7 @@ namespace ModTek
     [HarmonyPatch(typeof(AVPVideoPlayer), "PlayVideo")]
     public static class AVPVideoPlayer_PlayVideo_Patch
     {
-        public static bool Prefix(AVPVideoPlayer __instance, string video, Language language, Action<string> onComplete = null)
+        public static bool Prefix(AVPVideoPlayer __instance, string video, Strings.Culture culture, Action<string> onComplete = null)
         {
             if (!ModTek.ModVideos.ContainsKey(video))
                 return true;
@@ -108,7 +109,7 @@ namespace ModTek
             AVPMediaPlayer.OpenVideoFromFile(MediaPlayer.FileLocation.AbsolutePathOrURL, ModTek.ModVideos[video], false);
             if (ActiveOrDefaultSettings.CloudSettings.subtitles)
             {
-                instance.Method("LoadSubtitle", video, language.ToString()).GetValue();
+                instance.Method("LoadSubtitle", video, Strings.GetCultureNameEnglish(culture)).GetValue();
             }
             else
             {
