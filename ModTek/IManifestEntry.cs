@@ -14,6 +14,6 @@ namespace ModTek
         bool ShouldMergeJSON { get; set; }
         string AddToAddendum { get; set; }
 
-        VersionManifestEntry GenerateVMEntry();
+        VersionManifestEntry GetVersionManifestEntry();
     }
 }

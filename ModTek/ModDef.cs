@@ -101,9 +101,14 @@ namespace ModTek
             public string AssetBundleName { get; set; }
             public bool? AssetBundlePersistent { get; set; }
 
-            public VersionManifestEntry GenerateVMEntry()
+            private VersionManifestEntry versionManifestEntry;
+
+            public VersionManifestEntry GetVersionManifestEntry()
             {
-                return new VersionManifestEntry(Id, Path, Type, DateTime.Now, "1", AssetBundleName, AssetBundlePersistent);
+                if (versionManifestEntry == null)
+                    versionManifestEntry = new VersionManifestEntry(Id, Path, Type, DateTime.Now, "1", AssetBundleName, AssetBundlePersistent);
+
+                return versionManifestEntry;
             }
         }
     }

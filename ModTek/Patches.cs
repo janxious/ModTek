@@ -170,7 +170,7 @@ namespace ModTek
 
                 foreach(var entry in ModTek.ManifestEntries)
                 {
-                    var versionManifestEntry = entry.GenerateVMEntry();
+                    var versionManifestEntry = entry.GetVersionManifestEntry();
                     var resourceType = (BattleTechResourceType)Enum.Parse(typeof(BattleTechResourceType), entry.Type);
 
                     if (___contentPackIndex == null || ___contentPackIndex.IsResourceOwned(entry.Id))
