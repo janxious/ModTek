@@ -66,30 +66,6 @@ namespace ModTek
         }
     }
 
-    [HarmonyPatch]
-    public static class DataManager_Texture2DLoadRequest_OnLoaded_Patch
-    {
-        public static MethodBase TargetMethod()
-        {
-            var type = Traverse.Create(typeof(DataManager)).Type("Texture2DLoadRequest").GetValue<Type>();
-            return type.GetMethod("OnLoaded");
-        }
-
-        public static void Postfix(object __instance)
-        {
-            var resourceId = Traverse.Create(__instance).Field("resourceId").GetValue<string>();
-
-            if (!ModTek.ModTexture2Ds.Contains(resourceId))
-                return;
-
-            var resource = Traverse.Create(__instance).Field("resource").GetValue<Texture2D>();
-            var dataManager = Traverse.Create(__instance).Field("dataManager").GetValue<DataManager>();
-            var textureManager = Traverse.Create(dataManager).Property("TextureManager").GetValue<TextureManager>();
-
-            textureManager.InsertTexture(resourceId, resource);
-        }
-    }
-
     [HarmonyPatch(typeof(AVPVideoPlayer), "PlayVideo")]
     public static class AVPVideoPlayer_PlayVideo_Patch
     {
