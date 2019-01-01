@@ -742,12 +742,12 @@ namespace ModTek
         internal static void BuildCachedManifest()
         {
             // First load the default battletech manifest, then it'll get appended to
-            VersionManifest vanillaManifest = VersionManifestUtilities.LoadDefaultManifest();
+            CachedManifest = VersionManifestUtilities.LoadDefaultManifest();
 
             // Wrapper to be able to submit a parameterless work function
             IEnumerator<ProgressReport> NestedFunc()
             {
-                IEnumerator<ProgressReport> reports = BuildCachedManifestLoop(vanillaManifest);
+                IEnumerator<ProgressReport> reports = BuildCachedManifestLoop(CachedManifest);
                 while (reports.MoveNext())
                 {
                     yield return reports.Current;
