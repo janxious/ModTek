@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using BattleTech;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -34,6 +35,7 @@ namespace ModTek
         // load order
         public HashSet<string> DependsOn { get; set; } = new HashSet<string>();
         public HashSet<string> ConflictsWith { get; set; } = new HashSet<string>();
+        public HashSet<string> OptionallyDependsOn { get; set; } = new HashSet<string>();
 
         // adding and running code
         public string DLL { get; set; }
@@ -99,6 +101,16 @@ namespace ModTek
             public string Id { get; set; }
             public string AssetBundleName { get; set; }
             public bool? AssetBundlePersistent { get; set; }
+
+            private VersionManifestEntry versionManifestEntry;
+
+            public VersionManifestEntry GetVersionManifestEntry()
+            {
+                if (versionManifestEntry == null)
+                    versionManifestEntry = new VersionManifestEntry(Id, Path, Type, DateTime.Now, "1", AssetBundleName, AssetBundlePersistent);
+
+                return versionManifestEntry;
+            }
         }
     }
 }
